@@ -1,0 +1,22 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# MongoDB data (if inside project - usually not)
+data/
+
+# VS Code
+.vscode/
+#nodeman
+nodemon.json
