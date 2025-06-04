@@ -20,3 +20,5 @@ data/
 .vscode/
 #nodeman
 nodemon.json
+
+.env
