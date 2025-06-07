@@ -3,7 +3,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import authRouter from './routes/authRoutes'
-import { verifyToken } from './middleware/auth';
+import cardRouter from './routes/cardRoutes';
+
+dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET as string;
 
 const app = express();
 const PORT = 3000;
@@ -18,12 +21,12 @@ mongoose.connect('mongodb://localhost:27017/mydb', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 } as mongoose.ConnectOptions)
-.then(() => console.log('MongoDB connected'))
-.catch((err: Error) => console.log(err));
+  .then(() => console.log('MongoDB connected'))
+  .catch((err: Error) => console.log(err));
 
- app.use('/api/auth', authRouter);
- app.use('/api/protected', verifyToken);
-//app.use('/api/users', userRoutes);
+app.use('/api/auth', authRouter);
+
+app.use('/api/cards', cardRouter)
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);

@@ -6,8 +6,6 @@ interface JwtPayload {
   email: string;
 }
 
-const JWT_SECRET = process.env.JWT_SECRET as string;
-
 declare global {
   namespace Express {
     interface Request {
@@ -26,7 +24,7 @@ export function verifyToken(req: Request, res: Response, next: NextFunction) : v
   }
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+    const decoded = jwt.verify(token,  process.env.JWT_SECRET as string) as JwtPayload;
     req.user = decoded;
     next();
   } catch (err) {

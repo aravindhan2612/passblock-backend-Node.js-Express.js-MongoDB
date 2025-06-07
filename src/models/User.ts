@@ -19,13 +19,6 @@ const userSchema = new Schema<IUser>({
   password: { type: String, required: true }
 }, {
   timestamps: true,
-  toJSON: { virtuals: true },
-  toObject: { virtuals: true }
-});
-
-// ✅ Virtual for "id" (getter for frontend)
-userSchema.virtual('id').get(function (this: IUser) {
-  return this._id;
 });
 
 // ✅ Export the model
