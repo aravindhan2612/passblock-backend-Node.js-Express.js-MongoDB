@@ -6,7 +6,6 @@ import authRouter from './routes/authRoutes'
 import cardRouter from './routes/cardRoutes';
 
 dotenv.config();
-const JWT_SECRET = process.env.JWT_SECRET as string;
 
 const app = express();
 const PORT = 3000;
@@ -17,7 +16,7 @@ app.use(cors({
 app.use(express.json());
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/mydb', {
+mongoose.connect('mongodb://localhost:27017/passblockdb', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 } as mongoose.ConnectOptions)
