@@ -4,9 +4,10 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export async function registerUser(request: Request, response: Response): Promise<void> {
-  const { fullName, phoneNumber, email, password } = request.body;
+  const { fullName, email, password } = request.body;
 
   try {
+      await new Promise(resolve => setTimeout(resolve, 3000));
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       response.status(400).json({ error: 'User already exists' });
@@ -17,7 +18,6 @@ export async function registerUser(request: Request, response: Response): Promis
 
     const newUser = new User({
       fullName,
-      phoneNumber,
       email,
       password: hashedPassword
     });
@@ -42,6 +42,7 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
   const { email, password } = req.body;
 
   try {
+    await new Promise(resolve => setTimeout(resolve, 3000));
     // Find user by email
     const user = await User.findOne({ email });
     if (!user) {
@@ -70,7 +71,6 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
 }
 
 export async function getCurrentUser(req: Request, res: Response): Promise<void> {
-  async (req: Request, res: Response) => {
     try {
       const userId = req.user?.userId;
       if (!userId) {
@@ -88,5 +88,4 @@ export async function getCurrentUser(req: Request, res: Response): Promise<void>
     } catch (err: any) {
       res.status(500).json({ error: err.message });
     }
-  }
 }

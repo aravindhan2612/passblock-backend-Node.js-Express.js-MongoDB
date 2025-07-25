@@ -11,6 +11,7 @@ router.post('/register',registerUser)
 router.post('/login', loginUser);
 
 // GET /api/users/me - Get current logged-in user
-router.get('/me',verifyToken, getCurrentUser );
+router.use(verifyToken);
+router.get('/me', getCurrentUser );
 
 export default router

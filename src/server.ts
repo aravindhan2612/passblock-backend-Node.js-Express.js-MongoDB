@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import authRouter from './routes/authRoutes'
 import cardRouter from './routes/cardRoutes';
+import passwordRouter from './routes/passwordRoutes';
 
 dotenv.config();
 
@@ -24,8 +25,8 @@ mongoose.connect('mongodb://localhost:27017/passblockdb', {
   .catch((err: Error) => console.log(err));
 
 app.use('/api/auth', authRouter);
-
 app.use('/api/cards', cardRouter)
+app.use('/api/passwords', passwordRouter)
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
