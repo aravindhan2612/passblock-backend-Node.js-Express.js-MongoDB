@@ -1,22 +1,23 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IPassword extends Document{
-  name: string; // A descriptive name for the entry (e.g., "Google Account")
-  usernameOrUserId: string; // The username or user ID associated with the account
-  websiteLink?: string; // Optional: The URL of the website
-  passwordHash: string; // The hashed password (never store plain passwords!)
+  name: string; 
+  usernameOrUserId: string; 
+  websiteLink?: string; 
+  passwordHash: string; 
   userId:String;
-  tag?: string; //  // Reference to the User who owns this password entry
-  createdAt?: Date; // Timestamp for when the entry was created
-  updatedAt?: Date; // Timestamp for when the entry was last updated
+  tag?: string; 
+  faviconUrl?:string
+  createdAt?: Date; 
+  updatedAt?: Date; 
 }
 
 const passwordSchema: Schema<IPassword> = new Schema<IPassword>(
   {
     name: {
       type: String,
-      required: [true, 'Name is required'], // 'name' is a mandatory field
-      trim: true, // Remove whitespace from both ends of a string
+      required: [true, 'Name is required'],
+      trim: true, 
     },
     usernameOrUserId: {
       type: String,
@@ -31,11 +32,16 @@ const passwordSchema: Schema<IPassword> = new Schema<IPassword>(
         /^(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|[a-zA-Z0-9]+\.[^\s]{2,})$/i,
         'Please enter a valid URL',
       ],
-      default: '', // Default to an empty string if not provided
+      default: '',
     },
     tag:{
       type: String,
       trim: true
+    },
+    faviconUrl:{
+      type: String,
+      trim: true,
+      default:''
     },
     passwordHash: {
       type: String,
@@ -48,7 +54,7 @@ const passwordSchema: Schema<IPassword> = new Schema<IPassword>(
     },
   },
   {
-    timestamps: true, // Mongoose automatically adds createdAt and updatedAt fields
+    timestamps: true,
   }
 );
 const Password= mongoose.model<IPassword>('Password', passwordSchema);

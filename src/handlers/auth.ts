@@ -28,7 +28,7 @@ export async function registerUser(request: Request, response: Response): Promis
     const token = jwt.sign(
       { userId: newUser._id, email: newUser.email },
       process.env.JWT_SECRET as string,
-      { expiresIn: '1h' }
+      { expiresIn: '4h' }
     );
 
     response.status(201).json({ token });
@@ -61,7 +61,7 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
     const token = jwt.sign(
       { userId: user._id, email: user.email },
        process.env.JWT_SECRET as string,
-      { expiresIn: '1h' }
+      { expiresIn: '4h' }
     );
 
     res.json({ token });

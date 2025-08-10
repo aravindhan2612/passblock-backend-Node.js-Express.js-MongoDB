@@ -5,9 +5,10 @@ import { addPassword, deletePassword, getPasswords, updatePassword } from "../ha
 const router = Router()
 router.use(verifyToken);
 
- router.post('/', addPassword);
-router.put('/:id', updatePassword);
+ router.post('/add', addPassword);
+router.put('/update/:id', updatePassword);
 router.get('/', getPasswords);
-router.delete('/:id', deletePassword);
+router.delete('/delete/:id', deletePassword);
+
 
 export default router
