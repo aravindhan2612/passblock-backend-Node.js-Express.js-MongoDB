@@ -1,13 +1,14 @@
 import { Router } from "express";
 import { verifyToken } from "../middleware/auth";
-import { addPassword, deletePassword, getPasswords, updatePassword } from "../handlers/password";
+import { addPassword, deletePassword, getPasswords, updatePassword, getPassword } from "../handlers/password";
 
 const router = Router()
 router.use(verifyToken);
 
- router.post('/add', addPassword);
+router.post('/add', addPassword);
 router.put('/update/:id', updatePassword);
 router.get('/', getPasswords);
+router.get('/:id', getPassword);
 router.delete('/delete/:id', deletePassword);
 
 

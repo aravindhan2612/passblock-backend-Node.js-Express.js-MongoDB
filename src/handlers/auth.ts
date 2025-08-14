@@ -7,7 +7,7 @@ export async function registerUser(request: Request, response: Response): Promis
   const { fullName, email, password } = request.body;
 
   try {
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       response.status(400).json({ error: 'User already exists' });
@@ -42,7 +42,7 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
   const { email, password } = req.body;
 
   try {
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    await new Promise(resolve => setTimeout(resolve, 1000));
     // Find user by email
     const user = await User.findOne({ email });
     if (!user) {

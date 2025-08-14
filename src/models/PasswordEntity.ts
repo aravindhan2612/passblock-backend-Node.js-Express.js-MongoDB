@@ -4,7 +4,7 @@ export interface IPassword extends Document{
   name: string; 
   usernameOrUserId: string; 
   websiteLink?: string; 
-  passwordHash: string; 
+  password: string; 
   userId:String;
   tag?: string; 
   faviconUrl?:string
@@ -43,7 +43,7 @@ const passwordSchema: Schema<IPassword> = new Schema<IPassword>(
       trim: true,
       default:''
     },
-    passwordHash: {
+    password: {
       type: String,
       required: [true, 'Password is required'],
     },
