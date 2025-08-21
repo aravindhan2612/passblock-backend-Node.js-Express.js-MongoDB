@@ -8,7 +8,7 @@ export interface IUser extends Document {
   password: string;
   phoneNumber?: string;
   dateOfBirth?: Date;
-  profilePicture?: string;
+  profilePictureName?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -21,7 +21,7 @@ const userSchema = new Schema<IUser>(
     password: { type: String, required: true },
     phoneNumber: { type: String }, // new
     dateOfBirth: { type: Date }, // new
-    profilePicture: { type: String }, // new (base64 stored as string)
+    profilePictureName: { type: String, default: "" }, // new (base64 stored as string)
   },
   {
     timestamps: true,

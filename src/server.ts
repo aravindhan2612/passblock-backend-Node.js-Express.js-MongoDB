@@ -5,7 +5,6 @@ import cors from "cors";
 import authRouter from "./routes/userRoutes";
 import passwordRouter from "./routes/passwordRoutes";
 import fileRouter from "./routes/fileRoutes"
-import { serveUploadedFile } from "./handlers/file";
 
 dotenv.config();
 

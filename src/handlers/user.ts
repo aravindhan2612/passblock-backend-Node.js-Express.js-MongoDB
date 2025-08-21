@@ -111,7 +111,7 @@ export async function updateUserProfile(
       return;
     }
 
-    const { fullName, email, phoneNumber, dateOfBirth, profilePicture } =
+    const { fullName, email, phoneNumber, dateOfBirth } =
       req.body;
     const updateData: Record<string, any> = {};
 
@@ -128,11 +128,6 @@ export async function updateUserProfile(
 
     if (typeof dateOfBirth !== "undefined") {
       updateData.dateOfBirth = dateOfBirth;
-    }
-
-    if (typeof profilePicture !== "undefined") {
-      // Store base64 string directly in DB
-      updateData.profilePicture = profilePicture;
     }
 
     const updatedUser = await User.findByIdAndUpdate(
@@ -152,31 +147,4 @@ export async function updateUserProfile(
   }
 }
 
-export async function uploadProfilePicture(
-  req: Request,
-  res: Response
-): Promise<void> {
-  try {
-    const userId = req.user?.userId;
-    if (!userId) {
-      res.status(401).json({ error: "Unauthorized" });
-      return;
-    }
-    if (!req.file) {
-      res.status(400).send("No file uploaded.");
-      return;
-    }
 
-    // The 'req.file' object is now typed correctly
-    const file = req.file as Express.Multer.File;
-    const imageUrl = `uploads/${file.filename}`;
-
-    const user = await User.findByIdAndUpdate(
-      { _id: userId },
-      { profilePicture: imageUrl }
-    );
-    res.status(200).json(user);
-  } catch (err: any) {
-    res.status(500).json({ error: err.message });
-  }
-}

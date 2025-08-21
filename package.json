@@ -4,10 +4,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "brew services start mongodb-community@8.0 && nodemon src/server.ts",
-    "dev": "brew services start mongodb-community@8.0 && ts-node-dev --respawn --transpile-only src/server.ts",
+    "serve": "nodemon src/server.ts",
+    "devMac": "brew services start mongodb-community@8.0 && ts-node-dev --respawn --transpile-only src/server.ts",
+    "devWin": "net start MongoDB && ts-node-dev --respawn --transpile-only src/server.ts",
     "stop": "brew services stop mongodb-community@8.0",
-    "postinstall": "cp -n .env.example .env || true"
+    "stopWin": "net stop MongoDB",
+    "postinstall": "node -e \"const fs=require('fs');if(!fs.existsSync('.env'))fs.copyFileSync('.env.example','.env');\""
   },
   "keywords": [],
   "author": "",
