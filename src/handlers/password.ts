@@ -35,12 +35,15 @@ export async function addPassword(
     // const salt = await bcrypt.genSalt(10);
     // const passwordHash = await bcrypt.hash(password, salt);
     // Create a new Password document
-    const faviconUrl = (websiteLink !== undefined && websiteLink !== "" ) ? (await getFavicon(normalizeUrl(websiteLink))) as string : "";
+    const faviconUrl =
+      websiteLink !== undefined && websiteLink !== ""
+        ? ((await getFavicon(normalizeUrl(websiteLink))) as string)
+        : "";
     console.log("faviconUrl =>", faviconUrl);
     const newPassword: IPassword = new Password({
       name,
       usernameOrUserId,
-      websiteLink:normalizeUrl(websiteLink),
+      websiteLink: normalizeUrl(websiteLink),
       password: password,
       tag: tag,
       userId: request.user?.userId,
@@ -98,17 +101,21 @@ export async function updatePassword(
       return;
     }
 
-    const faviconUrl = (websiteLink !== undefined && websiteLink !== "" ) ? (await getFavicon(normalizeUrl(websiteLink))) as string : "";
-    
+    const faviconUrl =
+      websiteLink !== undefined && websiteLink !== ""
+        ? ((await getFavicon(normalizeUrl(websiteLink))) as string)
+        : "";
+
     // Prepare update object
     const updateFields: Partial<IPassword> = {};
     if (name !== undefined) updateFields.name = name;
     if (usernameOrUserId !== undefined)
       updateFields.usernameOrUserId = usernameOrUserId;
-    if (websiteLink !== undefined) updateFields.websiteLink = normalizeUrl(websiteLink);
+    if (websiteLink !== undefined)
+      updateFields.websiteLink = normalizeUrl(websiteLink);
     if (password !== undefined) updateFields.password = password;
     if (tag !== undefined) updateFields.tag = tag;
-    updateFields.faviconUrl = faviconUrl
+    updateFields.faviconUrl = faviconUrl;
 
     // If a new password is provided, hash it before updating
     // if (password !== undefined) {
