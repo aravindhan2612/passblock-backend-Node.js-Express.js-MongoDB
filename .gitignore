@@ -22,3 +22,4 @@ data/
 nodemon.json
 
 .env
+uploads
