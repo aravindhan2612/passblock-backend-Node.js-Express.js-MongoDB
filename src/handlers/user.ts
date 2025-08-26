@@ -22,21 +22,21 @@ export async function registerUser(
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new User({
+    const user = new User({
       fullName,
       email,
       password: hashedPassword,
     });
 
-    await newUser.save();
+    await user.save();
 
     const token = jwt.sign(
-      { userId: newUser._id, email: newUser.email },
+      { userId: user._id, email: user.email },
       process.env.JWT_SECRET as string,
       { expiresIn: "4h" }
     );
 
-    response.status(201).json({ token });
+    response.status(201).json({ user,token });
   } catch (err) {
     console.error(err);
     response.status(500).json({ error: "Server error" });
@@ -69,7 +69,7 @@ export async function loginUser(req: Request, res: Response): Promise<void> {
       { expiresIn: "4h" }
     );
 
-    res.json({ token });
+    res.json({ user, token  });
   } catch (err) {
     res.status(500).json({ error: "Server error" });
   }
