@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { registerUser, loginUser, updateUserProfile, getCurrentUser } from '../handlers/user';
+import { registerUser, loginUser, updateUserProfile, getCurrentUser, updateUserPassword } from '../handlers/user';
 import { verifyToken } from '../middleware/auth';
 
 
@@ -15,6 +15,6 @@ router.post('/login', loginUser);
 router.use(verifyToken);
 router.get('/me', getCurrentUser);
 router.post('/updateUser', updateUserProfile);
-
+router.post('/updatePassword', updateUserPassword);
 
 export default router

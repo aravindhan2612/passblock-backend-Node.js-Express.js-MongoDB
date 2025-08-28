@@ -146,5 +146,39 @@ export async function updateUserProfile(
     res.status(500).json({ error: err.message });
   }
 }
+export async function updateUserPassword(req: Request, res: Response): Promise<void> {
+  const userId = req.user?.userId;
+  const { currentPassword, newPassword } = req.body;
+
+  if (!userId) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+   if (currentPassword == newPassword) {
+      res.status(401).json({ error: "New password cannot be the same as current password" });
+      return;
+    }
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      res.status(404).json({ error: "User not found" });
+      return;
+    }
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      res.status(401).json({ error: "Invalid current password" });
+      return;
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedNewPassword;
+    await user.save();
+    res.json(user);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+}
 
 
